@@ -83,7 +83,7 @@ echo $vec1
 echo $vec2
 
 	#2.1 Using diff on boh folders. 
-diff -yr --report-identical-files <(cd $1 && du -ha --bytes | sort -k2) <(cd $2 && du -ha --bytes | sort -k2) > diff_files_sizes_$1$2.txt
+find . -type f -name '*dat' | diff -yr --report-identical-files <(cd $1 && du -ha --bytes | sort -k2) <(cd $2 && du -ha --bytes | sort -k2) > diff_files_sizes_$1$2.txt
 
 	#2.2 Using cksum on both folders
 find . -type f -name '*dat' | xargs cksum > bytes_counts$1$2.txt
