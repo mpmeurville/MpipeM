@@ -28,12 +28,16 @@ for f in *.tar;
 done
 cd untar 
 vec1=$(ls -F) 
+numearly=$(ls -R | wc -l)
+list_files_early=$(ls -R)
 
 cd .. #go back in $1
 
 cd .. #go back at $1 $2 lvl
 
 echo $vec1 > vecearly.txt #creates a txt file with values of vec1 in it
+echo $numearly > numearly.txt
+echo $list_files_early > list_files_early.csv
 
 cd $2
 for f in *.tar;
@@ -46,13 +50,17 @@ done
 
 cd untar 
 vec2=$(ls -F)
+numlate=$(ls -R | wc -l)
+list_files_late=$(ls -R)
+
 cd ..
 
 cd .. 
 #now we are at the level of $1 and $2 folders, in db 
 
 echo $vec2 > veclate.txt #creates a txt file with values of vec2 in it
-
+echo $numlate > numlate.txt
+echo $list_files_late > list_files_late.csv
 	#1.3 Untar .tar folders in newly created folders of same name without .tar, in the untar subfolder.
 cd $1
 for f in *.tar;
@@ -83,7 +91,7 @@ echo $vec1
 echo $vec2
 
 	#2.1 Using diff on boh folders. 
-find . -type f -name '*dat' | diff -yr --report-identical-files <(cd $1 && du -ha --bytes | sort -k2) <(cd $2 && du -ha --bytes | sort -k2) > diff_files_sizes_$1$2.txt
+diff -yr --report-identical-files <(cd $1 && du -ha --bytes | sort -k2) <(cd $2 && du -ha --bytes | sort -k2) > diff_files_sizes_$1$2.txt
 
 	#2.2 Using cksum on both folders
 find . -type f -name '*dat' | xargs cksum > bytes_counts$1$2.txt
@@ -94,5 +102,5 @@ module use /software/module/R/
 module add 3.1.1
 pwd
 
-Rscript pipeline_R.R -e $1 -l $2 -d diff_files_sizes_$1$2.txt -c bytes_counts$1$2.txt
+Rscript /scratch/beegfs/monthly/mmeurvil/db/MpipeM/pipeline_R.R -e $1 -l $2 -d diff_files_sizes_$1$2.txt -c bytes_counts$1$2.txt
 

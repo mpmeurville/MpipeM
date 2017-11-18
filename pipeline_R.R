@@ -30,9 +30,10 @@ folderlate <- opt$folderlate
 vec1=scan("vecearly.txt", what="character", sep=NULL) #transforming the input .txt content into string vectors. 
 vec2=scan("veclate.txt", what="character", sep=NULL)
 
-source ("size_functions.R")
-source ("bytes_functions.R")
-source ("merge_data_diff_bytes.R")
+source ("/scratch/beegfs/monthly/mmeurvil/db/MpipeM/size_functions.R")
+source ("/scratch/beegfs/monthly/mmeurvil/db/MpipeM/bytes_functions.R")
+source ("/scratch/beegfs/monthly/mmeurvil/db/MpipeM/merge_data_diff_bytes.R")
+
 path_abs=getwd()
 diff_file=paste(path_abs, '/', diff_file, sep = "")
 
@@ -47,6 +48,7 @@ getwd()
 
 files_size <- read.table(diff_file, fill=T, header = F) #reads the text file and creates a dataframe with data
 names(files_size)<- c('sizeearly', 'fileearly', 'sizelate', 'filelate', 'junk') #labeling headers
+    write.table(files_size, file ='files_size.csv', sep=';', col.names = TRUE, row.names = FALSE)
 
 #### Creation of subtables containing the files that have similar or different sizes, and that are unique in early or late folder
 
