@@ -33,6 +33,9 @@ subset_diff_files <- function (df)
   different_files=different_files[!grepl('\\.log', different_files$fileearly),]
   different_files=different_files[!grepl('\\.tar', different_files$filelate),]
   different_files=different_files[!grepl('\\.tar', different_files$fileearly),]
+ different_files=different_files[!grepl('\\.sql', different_files$filelate),]
+  different_files=different_files[!grepl('\\.sql', different_files$fileearly),]
+
   
   #### Deletion of useless cols, with signs, or empty cases
   different_files=different_files[, c(1,2,4,5)]
@@ -66,7 +69,8 @@ subset_unique_filesInearly <- function (df){
   #### Deletion of .log files (added when untar), and .tar files
   unique_filesInearly=unique_filesInearly[!grepl('\\.log', unique_filesInearly$fileearly),]
   unique_filesInearly=unique_filesInearly[!grepl('\\.tar', unique_filesInearly$fileearly),]
-  
+    unique_filesInearly=unique_filesInearly[!grepl('\\.sql', unique_filesInearly$fileearly),]
+
   
   #### Deletion of folders (late and early with their overall size) that are only in early folder: we have already files inside these folder, so idenical folders were redundant
   unique_filesInearly= unique_filesInearly[with(unique_filesInearly, grepl('.+\\....$', fileearly)),]
@@ -98,6 +102,8 @@ subset_unique_filesInlate <- function (df)
   #### Deletion of .log files (added when untar), and .tar files
   unique_filesInlate=unique_filesInlate[!grepl('\\.log', unique_filesInlate$filelate),]
   unique_filesInlate=unique_filesInlate[!grepl('\\.tar', unique_filesInlate$filelate),]
+  unique_filesInlate=unique_filesInlate[!grepl('\\.sql', unique_filesInlate$filelate),]
+
   
   #### Deletion of folders (late and early with their overall size) that are only in early folder: we have already files inside these folder, so idenical folders were redundant
   unique_filesInlate= unique_filesInlate[with(unique_filesInlate, grepl('.+\\....$', filelate)),]
@@ -145,6 +151,9 @@ subset_same_files <- function (df)
   same_file_size=same_file_size[!grepl('\\.log', same_file_size$fileearly),]
   same_file_size=same_file_size[!grepl('\\.tar', same_file_size$filelate),]
   same_file_size=same_file_size[!grepl('\\.tar', same_file_size$fileearly),]
+  same_file_size=same_file_size[!grepl('\\.sql', same_file_size$filelate),]
+  same_file_size=same_file_size[!grepl('\\.sql', same_file_size$fileearly),]
+
   
   #### Deletion of folders (late and early with their overall size) that are only in early folder: we have already files inside these folder, so idenical folders were redundant
   same_file_size= same_file_size[with(same_file_size, grepl('.+\\....$', filelate)),]
