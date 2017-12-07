@@ -72,18 +72,18 @@ path_abs=getwd()
 
             #### CKSUM COMPARISON
 
-bytes_raw=read.table(diff_cksum) #Est ce que ca joue quand on appelle un fichier comme ca depuis R dans bash?
-names(bytes_raw)<-c('cksum', 'size', 'file')
+bytes_raw=read.table(diff_cksum)
+names(bytes_raw)<-c('cksum', 'file')
 
 
 #### Creates two subtables containing data for early and late folders
 bytesearly=bytes_raw[grepl(folderearly, bytes_raw$file),]
-names(bytesearly)=c('cksumearly', 'sizeearly', 'file')
-    write.table(bytesearly, file ='bytes_early.csv', sep=';', col.names = TRUE, row.names = FALSE)
+names(bytesearly)=c('cksumearly', 'file')
+    write.table(bytesearly, file = 'bytes_early.csv', sep=';', col.names = TRUE, row.names = FALSE)
 
 
 byteslate=bytes_raw[grepl(folderlate, bytes_raw$file),]
-names(byteslate)=c('cksumlate', 'sizelate', 'file')
+names(byteslate)=c('cksumlate', 'file')
     write.table(byteslate, file ='bytes_late.csv', sep=';', col.names = TRUE, row.names = FALSE)
 
 
@@ -98,25 +98,25 @@ bytes= merge(byteslate, bytesearly, by='file', all=TRUE)
 
 #### Creation of a df containing files with different cksums but same name
 diff_bytes_table=diff_bytes(bytes)
-names(diff_bytes_table)=c('file', 'cksumlate', 'sizelate', 'cksumearly', 'sizeearly')
+names(diff_bytes_table)=c('file', 'cksumlate', 'cksumearly')
       write.table(diff_bytes_table, file ='diff_bytes.csv', sep=';', col.names = TRUE, row.names = FALSE)
 
 
 #### Creation of a df containing files with same cksums and same name
 same_bytes_table=same_bytes(bytes)
-names(same_bytes_table)=c('file', 'cksumlate', 'sizelate', 'cksumearly', 'sizeearly')
+names(same_bytes_table)=c('file', 'cksumlate', 'cksumearly')
     write.table(same_bytes_table, file ='same_bytes.csv', sep=';', col.names = TRUE, row.names = FALSE)
 
 
 #### Creation of a df containing files only in late folder
 unique_bytesInlate_table=unique_bytesInlate(bytes)
-names(unique_bytesInlate_table)=c('file', 'cksumlate', 'sizelate', 'cksumearly', 'sizeearly')
+names(unique_bytesInlate_table)=c('file', 'cksumlate', 'cksumearly')
 write.table(unique_bytesInlate_table, file ='unique_bytesInlate.csv', sep=';', col.names = TRUE, row.names = FALSE)
 
 
 #### Creation of a df containing files only in early folder
 unique_bytesInearly_table=unique_bytesInearly(bytes)
-names(unique_bytesInearly_table)=c('file', 'cksumlate', 'sizelate', 'cksumearly', 'sizeearly')
+names(unique_bytesInearly_table)=c('file', 'cksumlate', 'cksumearly')
   write.table(unique_bytesInearly_table, file ='unique_bytesInearly.csv', sep=';', col.names = TRUE, row.names = FALSE)
 
 #### Creation of a df containing the number of .dat files in every subfolder in late and early directories

@@ -94,7 +94,7 @@ echo $vec2
 #diff -yr <(cd $1 && du -ha --bytes | sort -k2) <(cd $2 && du -ha --bytes | sort -k2) > diff_files_sizes_$1$2.txt
 
 	#2.2 Using cksum on both folders
-find . -type f -name '*dat' | xargs cksum > bytes_counts$1$2.txt
+find . -type f -name '*dat' | xargs md5sum > bytes_counts$1$2.txt
 ls -R | find . -type f -name '*dat' > total_files_dat$1$2.txt
 
 #grep $1 bytes_counts$1$2.txt > count_files_bytes_early.csv

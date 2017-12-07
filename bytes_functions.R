@@ -6,7 +6,7 @@ unique_bytesInearly= function (df)
 {
   
   
-  unique_bytesInearly=df[is.na(df$sizelate),]
+  unique_bytesInearly=df[is.na(df$cksumlate),]
 
   return(unique_bytesInearly)
   
@@ -21,14 +21,14 @@ unique_bytesInlate= function (df)
 {
   
   
-  unique_bytesInlate=df[is.na(df$sizeearly),]
+  unique_bytesInlate=df[is.na(df$cksumearly),]
 
   return(unique_bytesInlate)
   
   
 }
 
-#separates files that are the same in size between early and late. 
+#separates files that are the same in md5sum between early and late. 
 
 same_bytes <- function (df)
 {
